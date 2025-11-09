@@ -1,0 +1,206 @@
+{
+  "info": {
+    "name": "Auto-generated PHP CRUD APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/users_api.php"
+            }
+          }
+        },
+        {
+          "name": "Get by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/users_api.php?id=1"
+            }
+          }
+        },
+        {
+          "name": "Insert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"insert\",\"key\":\"value\"}"
+            },
+            "url": {
+              "raw": "http://localhost/users_api.php"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"update\",\"id\":1,\"key\":\"new_value\"}"
+            },
+            "url": {
+              "raw": "http://localhost/users_api.php"
+            }
+          }
+        },
+        {
+          "name": "Delete All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"delete\"}"
+            },
+            "url": {
+              "raw": "http://localhost/users_api.php"
+            }
+          }
+        },
+        {
+          "name": "Delete by ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"deleteById\",\"id\":1}"
+            },
+            "url": {
+              "raw": "http://localhost/users_api.php"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/products_api.php"
+            }
+          }
+        },
+        {
+          "name": "Get by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/products_api.php?id=1"
+            }
+          }
+        },
+        {
+          "name": "Insert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"insert\",\"key\":\"value\"}"
+            },
+            "url": {
+              "raw": "http://localhost/products_api.php"
+            }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"update\",\"id\":1,\"key\":\"new_value\"}"
+            },
+            "url": {
+              "raw": "http://localhost/products_api.php"
+            }
+          }
+        },
+        {
+          "name": "Delete All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"delete\"}"
+            },
+            "url": {
+              "raw": "http://localhost/products_api.php"
+            }
+          }
+        },
+        {
+          "name": "Delete by ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"action\":\"deleteById\",\"id\":1}"
+            },
+            "url": {
+              "raw": "http://localhost/products_api.php"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
