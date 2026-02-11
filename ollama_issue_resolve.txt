@@ -1,0 +1,13 @@
+quit ollama from below drawer
+
+on poweshell run this
+taskkill /F /IM ollama.exe
+
+python generate_php_api_with_postman.py
+
+==========================================
+after reinstalling
+
+ollama serve
+
+ollama pull llama3

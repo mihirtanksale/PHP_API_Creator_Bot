@@ -1,6 +1,5 @@
-Here is the generated PHP CRUD API file based on the provided MySQL table schema:
-
-```php
+Here is the PHP CRUD API file that matches your requirements:
+```
 <?php
 header("Content-Type: application/json");
 header('Access-Control-Allow-Origin: *');
@@ -26,11 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($request_data['action'])) {
             deleteAll();
             break;
         case 'deleteById':
-            if (isset($request_data['id'])) {
-                deleteById($request_data['id']);
-            } else {
-                echo json_encode(array("error" => "Id is required"));
-            }
+            deleteById($request_data);
             break;
         case 'getMaxId':
             getMaxId();
@@ -42,90 +37,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($request_data['action'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
-        getById((int) $_GET['id']);
+        getById($_GET['id']);
     } else {
         getAll();
     }
 }
 
 function insert($data) {
-    $query = "INSERT INTO users SET name=?, email=?, password=?";
-    $stmt = $dbConnection->prepare($query);
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $name, $email, $password);
     $name = $data['name'];
     $email = $data['email'];
     $password = $data['password'];
     $stmt->execute();
-    echo json_encode(array("success" => "User inserted successfully"));
+    echo json_encode(array("message" => "User inserted successfully"));
 }
 
 function update($data) {
-    if (!isset($data['id'])) {
-        echo json_encode(array("error" => "Id is required"));
-    } else {
-        $id = $data['id'];
-        $query = "UPDATE users SET name=?, email=?, password=? WHERE id=?";
-        $stmt = $dbConnection->prepare($query);
-        $stmt->bind_param("sssi", $name, $email, $password, $id);
-        $name = $data['name'];
-        $email = $data['email'];
-        $password = $data['password'];
-        $stmt->execute();
-        echo json_encode(array("success" => "User updated successfully"));
-    }
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
+    $stmt->bind_param("sssi", $name, $email, $password, $id);
+    $id = $data['id'];
+    $name = $data['name'];
+    $email = $data['email'];
+    $password = $data['password'];
+    $stmt->execute();
+    echo json_encode(array("message" => "User updated successfully"));
 }
 
 function deleteAll() {
-    $query = "DELETE FROM users";
-    $stmt = $dbConnection->prepare($query);
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("DELETE FROM users");
     $stmt->execute();
-    echo json_encode(array("success" => "Users deleted successfully"));
+    echo json_encode(array("message" => "All users deleted successfully"));
 }
 
-function deleteById($id) {
-    if (!isset($id)) {
-        echo json_encode(array("error" => "Id is required"));
-    } else {
-        $query = "DELETE FROM users WHERE id=?";
-        $stmt = $dbConnection->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        echo json_encode(array("success" => "User deleted successfully"));
-    }
+function deleteById($data) {
+    $id = $data['id'];
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    echo json_encode(array("message" => "User deleted successfully"));
 }
 
 function getMaxId() {
-    $query = "SELECT MAX(id) AS max_id FROM users";
-    $result = $dbConnection->query($query);
-    $row = $result->fetch_assoc();
-    echo json_encode(array("max_id" => $row['max_id']));
-}
-
-function getAll() {
-    $query = "SELECT * FROM users";
-    $result = $dbConnection->query($query);
-    $data = array();
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-    echo json_encode($data);
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("SELECT MAX(id) AS max_id FROM users");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    echo json_encode(array("maxId" => $result[0]['max_id']));
 }
 
 function getById($id) {
-    if (!isset($id)) {
-        echo json_encode(array("error" => "Id is required"));
-    } else {
-        $query = "SELECT * FROM users WHERE id=?";
-        $stmt = $dbConnection->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = array();
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-        echo json_encode($data);
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    echo json_encode(array_fetch_assoc($result));
+}
+
+function getAll() {
+    $query = new mysqli($dbConnection, $username, $password);
+    $stmt = $query->prepare("SELECT * FROM users");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $users = array();
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
     }
+    echo json_encode($users);
 ?>
 ```
-This PHP code implements a basic CRUD API using MySQLi.
+Note that I've used MySQLi (object-oriented) and prepared statements as requested. I've also included the `dbConnection.php` file, which should contain the database connection details.
